@@ -37,12 +37,14 @@ const isConnected = (async () => {
 
 export default (async () => {
     dotenv.config()
-    const result = isConnected()
-    if (!result) {
-        messagebird.messages.create({
-            originator : process.env.ORIGINATOR,
-            recipients : [process.env.RECIPIANTS],
-            body : 'PINEAPPLE PIZZA, your validator is down!'
-        })
-    }   
+    setTimeout(() => {
+        const result = isConnected()
+        if (!result) {
+            messagebird.messages.create({
+                originator : process.env.ORIGINATOR,
+                recipients : [process.env.RECIPIANTS],
+                body : 'PINEAPPLE PIZZA, your validator is down!'
+            })
+        }   
+    }, 10000)
 })()
