@@ -37,8 +37,10 @@ const isConnected = (async () => {
 
 export default (async () => {
     dotenv.config()
+    let last_sent = 0
     setTimeout(() => {
         const result = isConnected()
+        if (last_sent + (process.env.RESEND-TEXT * 1000) > new Date().getTime()) { return }
         if (!result) {
             messagebird.messages.create({
                 originator : process.env.ORIGINATOR,
