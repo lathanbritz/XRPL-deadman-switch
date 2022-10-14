@@ -1,7 +1,6 @@
 {
   "name": "XRPL-deadman-switch",
   "version": "0.0.1",
-  "type": "module",
   "description": "text notifoication validator down",
   "main": "src/index.js",
   "scripts": {
