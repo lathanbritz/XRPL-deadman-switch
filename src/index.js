@@ -9,11 +9,11 @@ const isConnected = (async () => {
     const state = await client.getState()
     const server_info = await client.send({"id": 1, "command": "server_info"})
     if (state == null || state.online == false) {
-        return true
+        return false
     }
     
     if (server_info.info.peers < process.env.PEER-MIN-LIMIT) {
-        return true
+        return false
     }
 
     // check a book on the DEX>
@@ -28,11 +28,11 @@ const isConnected = (async () => {
 
     if ('error' in book_result) {
         // this usually traps the limited connection error when a node does not have enough connection
-        return true
+        return false
     }
 
     // we are fine and connected
-    return false    
+    return true    
 })
 
 export default (async () => {
