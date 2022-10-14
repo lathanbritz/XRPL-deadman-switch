@@ -1,5 +1,6 @@
 # XRPL-deadman-switch
 
+Sends a text message to your mobile when your validator goes walk abouts (off line)
 
 1. clone repo onto validator
 2. run `yarn`
