@@ -4,7 +4,6 @@ const messagebird = require('messagebird')(process.env.YOUR_API_KEY)
 const dotenv = require('dotenv')
 const log = debug('deadman:main')
 
-
 class deadman {
 	constructor() {
         Object.assign(this, {
@@ -23,8 +22,13 @@ class deadman {
                             originator : process.env.ORIGINATOR,
                             recipients : [process.env.RECIPIANTS],
                             body : 'PINEAPPLE PIZZA, your validator is down!'
+                        }, function (err, response) {
+                            if (err) {
+                               log('ERROR:', err)
+                           } else {
+                               log('PINEAPPLE HEAD GOT MESSAGE:', response)
+                           }
                         })
-                        log('sent a text')
                     }   
                 }, 10000)
             },
