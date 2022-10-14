@@ -34,15 +34,17 @@ class deadman {
             },
             async isConnected() {
                 log('checking connection')
-                const client = new XrplClient([process.env.VALIDATOR_ADMIN_WEBSOCKET])
-            
-                const state = await client.getState()
-                const server_info = await client.send({"id": 1, "command": "server_info"})
-                if (state == null || state.online == false) {
+                const client = new XrplClient(process.env.VALIDATOR_ADMIN_WEBSOCKET)
+                
+                const server_info = await client.send({id: 1, command: 'server_info'})
+
+                if (server_info.info.server_state != process.env.REQUIRED_STATE) {
+                    log('not ' + process.env.REQUIRED_STATE, server_info.info.server_state)
                     return false
                 }
-                
+
                 if (server_info.info.peers < process.env.PEER_MIN_LIMIT) {
+                    log('to few peers')
                     return false
                 }
             
@@ -58,6 +60,7 @@ class deadman {
             
                 if ('error' in book_result) {
                     // this usually traps the limited connection error when a node does not have enough connection
+                    log('query result error', error)
                     return false
                 }
             
